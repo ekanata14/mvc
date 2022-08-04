@@ -1,10 +1,11 @@
 <?php
 
 // Membuat class/controller home
-class home{
-
-    // Method default dari class/controller home
+class Home extends Controller{
     public function index(){
-        echo "Ini adalah home";
+        $data['judul'] = "Home Page";
+        $this->view('components/header', $data);
+        $this->view('home/index');
+        $this->view('components/footer');
     }
 }

@@ -8,21 +8,24 @@ class App{
     public function __construct(){
         // Mengambil url yang sudah dibersihkan di parseURL
         $url = $this->parseURL();
-
         // Mengecek apakah class controller ada di dalam folder controllers
-        if(file_exists('../app/controllers/' . $url[0] .'.php')){
+        if(isset($url)){
+            if(file_exists('../app/controllers/' . $url[0] .'.php')){
             $this->controller = $url[0];
             unset($url[0]);
-        }
+            }
+        }   
 
         // Menginisialiasi class dari file class yang ada dalam folder controller
         require_once '../app/controllers/' . $this->controller . '.php';
         $this->controller = new $this->controller;
 
         // Mengecek apakah method yang ada di dalam url tersedia atau tidak
-        if(method_exists($this->controller, $url[1])){
-            $this->method = $url[1];
-            unset($url[1]);
+        if(isset($url[1])){
+            if(method_exists($this->controller, $url[1])){
+                $this->method = $url[1];
+                unset($url[1]);
+            }
         }
 
         // Mengisi data pada variabel parameter jika ada data yang dimasukkan
